@@ -15,6 +15,10 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'status',
+    ];
+
     public function company(): HasOne
     {
         return $this->hasOne(Company::class, 'id', 'company_id');

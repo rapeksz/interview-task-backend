@@ -8,12 +8,13 @@ use App\Infrastructure\Controller;
 use App\Modules\Invoices\Api\InvoiceFacadeInterface;
 use App\Modules\Invoices\Infrastructure\Http\Resources\InvoiceResource;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShowInvoicesController extends Controller
+final class ShowInvoicesController extends Controller
 {
-    public function __invoke(InvoiceFacadeInterface $invoiceFacade): Response
+    public function __invoke(InvoiceFacadeInterface $invoiceFacade): JsonResponse
     {
         try {
             $invoices = $invoiceFacade->getAll();

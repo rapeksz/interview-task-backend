@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Modules\Approval\Infrastructure\Http\Controllers\ApprovalController;
 use App\Modules\Invoices\Infrastructure\Http\Controllers\ShowInvoicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('invoices', ShowInvoicesController::class);
+Route::put('invoices/{id}/approval', ApprovalController::class);

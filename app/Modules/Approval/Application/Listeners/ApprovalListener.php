@@ -6,16 +6,14 @@ namespace App\Modules\Approval\Application\Listeners;
 
 use App\Modules\Approval\Api\Events\EntityApproved;
 use App\Modules\Approval\Api\Events\EntityRejected;
-use App\Modules\Invoices\Repository\InvoiceRepositoryInterface;
+use App\Modules\Approval\Application\RepositoryFactory;
 
 final readonly class ApprovalListener
 {
-    public function __construct(private InvoiceRepositoryInterface $invoiceRepository)
-    {
-    }
-
     public function handle(EntityApproved|EntityRejected $event): void
     {
-        $this->invoiceRepository->updateStatus($event->approvalDto);
+        $dto = $event->approvalDto;
+        $repository = RepositoryFactory::create($dto->entity);
+        $repository->updateStatus($event->approvalDto);
     }
 }
