@@ -13,7 +13,6 @@ class CompanySeeder extends Seeder
 {
     public function run(): void
     {
-
         $faker = Factory::create();
 
         $companies = [];

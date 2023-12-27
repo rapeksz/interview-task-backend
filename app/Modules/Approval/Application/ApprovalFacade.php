@@ -19,6 +19,9 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
     ) {
     }
 
+    /**
+     * @throws LogicException
+     */
     public function approve(ApprovalDto $dto): true
     {
         $this->validate($dto);
@@ -27,6 +30,9 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
         return true;
     }
 
+    /**
+     * @throws LogicException
+     */
     public function reject(ApprovalDto $dto): true
     {
         $this->validate($dto);
@@ -35,6 +41,9 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
         return true;
     }
 
+    /**
+     * @throws LogicException
+     */
     private function validate(ApprovalDto $dto): void
     {
         if (StatusEnum::DRAFT !== StatusEnum::tryFrom($dto->status->value)) {

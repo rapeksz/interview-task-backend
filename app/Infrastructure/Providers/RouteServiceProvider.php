@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
@@ -21,7 +23,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
-     *
      */
     public function boot(): void
     {
@@ -39,7 +40,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Configure the rate limiters for the application.
-     *
      */
     protected function configureRateLimiting(): void
     {
