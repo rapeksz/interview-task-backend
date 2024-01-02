@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Invoices\Infrastructure\Http\Resources;
+namespace App\Modules\Invoices\Api\Http\Resources;
 
 use App\Modules\Companies\Infrastructure\Http\Resources\BilledCompanyResource;
 use App\Modules\Companies\Infrastructure\Http\Resources\CompanyResource;

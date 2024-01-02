@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Invoices\Infrastructure\Http\Controllers;
+namespace App\Modules\Invoices\Api\Http\Controllers;
 
 use App\Infrastructure\Controller;
+use App\Modules\Invoices\Api\Http\Resources\InvoiceResource;
 use App\Modules\Invoices\Api\InvoiceFacadeInterface;
-use App\Modules\Invoices\Infrastructure\Http\Resources\InvoiceResource;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;

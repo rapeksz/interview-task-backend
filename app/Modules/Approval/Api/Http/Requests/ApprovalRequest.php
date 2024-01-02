@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Approval\Infrastructure\Http\Requests;
+namespace App\Modules\Approval\Api\Http\Requests;
 
 use App\Domain\Enums\EntityEnum;
 use App\Domain\Enums\StatusEnum;

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Modules\Approval\Infrastructure\Http\Controllers\ApprovalController;
-use App\Modules\Invoices\Infrastructure\Http\Controllers\ShowInvoicesController;
+use App\Modules\Approval\Api\Http\Controllers\ApprovalController;
+use App\Modules\Invoices\Api\Http\Controllers\ShowInvoicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

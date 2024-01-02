@@ -12,7 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final readonly class InvoiceFacade implements InvoiceFacadeInterface
 {
-    public function __construct(private readonly InvoiceRepositoryInterface $invoiceRepository)
+    public function __construct(private InvoiceRepositoryInterface $invoiceRepository)
     {
     }
 
