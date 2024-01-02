@@ -11,6 +11,7 @@ use App\Modules\Approval\Api\Events\EntityApproved;
 use App\Modules\Approval\Api\Events\EntityRejected;
 use App\Modules\Approval\Api\Exceptions\StatusAlreadyAssignedException;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Model;
 use LogicException;
 
 final readonly class ApprovalFacade implements ApprovalFacadeInterface
@@ -23,7 +24,7 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
     /**
      * @throws StatusAlreadyAssignedException
      */
-    public function apply(ApprovalDto $dto): true
+    public function apply(ApprovalDto $dto): Model
     {
         $status = StatusEnum::tryFrom($dto->status->value);
 
@@ -35,39 +36,53 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
             return $this->reject($dto);
         }
 
-        throw new StatusAlreadyAssignedException('Incorrect approval status.');
+        throw new LogicException('Incorrect approval status.');
     }
 
     /**
      * @throws LogicException
+     * @throws StatusAlreadyAssignedException
      */
-    public function approve(ApprovalDto $dto): true
+    public function approve(ApprovalDto $dto): Model
     {
-        $this->validate($dto);
+        $model = $this->getModel($dto);
+        $this->validate($model);
         $this->dispatcher->dispatch(new EntityApproved($dto));
+        $model->status = $dto->status->value;
 
-        return true;
+        return $model;
     }
 
     /**
      * @throws LogicException
+     * @throws StatusAlreadyAssignedException
      */
-    public function reject(ApprovalDto $dto): true
+    public function reject(ApprovalDto $dto): Model
     {
-        $this->validate($dto);
+        $model = $this->getModel($dto);
+        $this->validate($model);
         $this->dispatcher->dispatch(new EntityRejected($dto));
+        $model->status = $dto->status->value;
 
-        return true;
+        return $model;
     }
 
-    private function validate(ApprovalDto $dto): void
+    /**
+     * @throws StatusAlreadyAssignedException
+     */
+    private function validate(Model $model): void
     {
-        $repository = RepositoryFactory::create($dto->entity);
-        $invoice = $repository->findById($dto->id->toString());
-        $modelStatus = StatusEnum::tryFrom($invoice->status);
+        $modelStatus = StatusEnum::tryFrom($model->status);
 
         if (StatusEnum::DRAFT !== $modelStatus) {
-            throw new LogicException('approval status is already assigned');
+            throw new StatusAlreadyAssignedException('approval status is already assigned');
         }
+    }
+
+    private function getModel(ApprovalDto $dto): Model
+    {
+        $repository = RepositoryFactory::create($dto->entity);
+
+        return $repository->findById($dto->id->toString());
     }
 }

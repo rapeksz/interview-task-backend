@@ -26,7 +26,7 @@ class InvoiceResource extends JsonResource
             'company' => new CompanyResource($this->company),
             'billed_company' => new BilledCompanyResource($this->billedCompany),
             'products' => ProductResource::collection($this->products),
-            'total_price' => '',
+            'total_price' => $this->getTotalPrice()->value,
         ];
     }
 }

@@ -27,6 +27,7 @@ final class ApprovalController extends Controller
         } catch (LogicException | StatusAlreadyAssignedException $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (Exception $e) {
+            dd($e);
             Log::error($e->getTraceAsString());
 
             return response()->json(['error' => 'Something went wrong.'], Response::HTTP_NOT_FOUND);
